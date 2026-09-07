@@ -1,0 +1,41 @@
+{
+  "name": "fastrtc",
+  "version": "1.1.1",
+  "description": "Mesh helper for connecting peers and opening data channels",
+  "keywords": [
+    "datachannel",
+    "fast",
+    "mesh",
+    "p2p",
+    "rtc",
+    "webrtc"
+  ],
+  "license": "MIT",
+  "author": "n0tz3r0",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "pnpm clean && tsup && tsc",
+    "prepublishOnly": "pnpm build",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "tsup": "^8.5.1",
+    "vitest": "^3.2.4"
+  }
+}
