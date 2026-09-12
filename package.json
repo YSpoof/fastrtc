@@ -1,6 +1,6 @@
 {
   "name": "fastrtc",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Mesh helper for connecting peers and opening data channels",
   "keywords": [
     "datachannel",
@@ -16,26 +16,30 @@
     "dist"
   ],
   "type": "module",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "./dist/index.d.mts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
     }
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "pnpm clean && tsup && tsc",
+    "build": "tsdown",
     "prepublishOnly": "pnpm build",
     "test": "vitest run",
     "test:watch": "vitest"
   },
   "devDependencies": {
-    "typescript": "^7.0.2",
-    "tsup": "^8.5.1",
-    "vitest": "^3.2.4"
-  }
+    "tsdown": "^0.23.0",
+    "vitest": "^5.0.0"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.4.1",
+      "onFail": "download"
+    }
+  },
+  "packageManager": "pnpm@12.4.1"
 }

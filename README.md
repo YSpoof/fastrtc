@@ -74,7 +74,7 @@ type SignalPayload =
 - `signal(to, payload)` — fastrtc needs to send SDP or ICE to `to`
 - `receive(from, payload)` — apply a remote signal (auto-connects, returns `Peer`)
 
-**Offer glare:** peer with the lexicographically larger ID is *polite* and yields on collision. Only the *impolite* peer creates labeled data channels; the polite peer waits for `ondatachannel`.
+**Offer glare:** peer with the lexicographically larger ID is _polite_ and yields on collision. Only the _impolite_ peer creates labeled data channels; the polite peer waits for `ondatachannel`.
 
 ## Channels
 
@@ -96,11 +96,11 @@ Late labels after `ready`: `await bob.open("files")`.
 
 ## Broadcast
 
-| Method | Target |
-| ------ | ------ |
-| `send(label, data)` | Every peer with that label open |
-| `sendTo(peerId, label, data)` | One peer |
-| `channel.send(data)` | Channel you already have |
+| Method                        | Target                          |
+| ----------------------------- | ------------------------------- |
+| `send(label, data)`           | Every peer with that label open |
+| `sendTo(peerId, label, data)` | One peer                        |
+| `channel.send(data)`          | Channel you already have        |
 
 No open targets on `send` → resolves, does not throw. Both honor `{ signal?: AbortSignal }`.
 
@@ -108,10 +108,10 @@ No open targets on `send` → resolves, does not throw. Both honor `{ signal?: A
 
 `FastRTC` is an `EventTarget`:
 
-| Event | Payload |
-| ----- | ------- |
-| `join` | `peer` |
-| `leave` | `id` |
+| Event   | Payload       |
+| ------- | ------------- |
+| `join`  | `peer`        |
+| `leave` | `id`          |
 | `error` | `id`, `error` |
 
 `Channel` events: `message` (`data`), `close`, `error`.
@@ -141,43 +141,43 @@ new FastRTC({
 })
 ```
 
-| Method | Description |
-| ------ | ----------- |
-| `channel(label, options?)` | Register a labeled channel for all peers |
-| `connect(id, { signal? })` | Open connection; idempotent; returns `Peer` |
-| `receive(id, payload)` | Apply remote SDP/ICE; auto-connects; returns `Peer` |
-| `get(id)` | `Peer` or `undefined` |
-| `send(label, data, options?)` | Broadcast to every open channel on `label` |
-| `sendTo(peerId, label, data, options?)` | Send to one peer |
-| `close(id)` | Tear down one peer |
-| `dispose()` / `[Symbol.dispose]()` | Close everything |
+| Method                                  | Description                                         |
+| --------------------------------------- | --------------------------------------------------- |
+| `channel(label, options?)`              | Register a labeled channel for all peers            |
+| `connect(id, { signal? })`              | Open connection; idempotent; returns `Peer`         |
+| `receive(id, payload)`                  | Apply remote SDP/ICE; auto-connects; returns `Peer` |
+| `get(id)`                               | `Peer` or `undefined`                               |
+| `send(label, data, options?)`           | Broadcast to every open channel on `label`          |
+| `sendTo(peerId, label, data, options?)` | Send to one peer                                    |
+| `close(id)`                             | Tear down one peer                                  |
+| `dispose()` / `[Symbol.dispose]()`      | Close everything                                    |
 
-| Property | Description |
-| -------- | ----------- |
-| `id` | Local peer ID |
-| `rtcConfig` | Active RTC configuration |
-| `peers` | `ReadonlyMap<string, Peer>` |
+| Property    | Description                 |
+| ----------- | --------------------------- |
+| `id`        | Local peer ID               |
+| `rtcConfig` | Active RTC configuration    |
+| `peers`     | `ReadonlyMap<string, Peer>` |
 
 ### `Peer`
 
-| Method / property | Description |
-| ----------------- | ----------- |
-| `id` | Remote peer ID |
-| `connection` | Underlying `RTCPeerConnection` |
-| `channels` | `ReadonlyMap<string, Channel>` |
-| `ready` | Resolves when every declared label is open (or ICE connected if none) |
-| `open(label, { signal? })` | Promise for one open channel |
-| `close()` | Tear down this peer |
+| Method / property          | Description                                                           |
+| -------------------------- | --------------------------------------------------------------------- |
+| `id`                       | Remote peer ID                                                        |
+| `connection`               | Underlying `RTCPeerConnection`                                        |
+| `channels`                 | `ReadonlyMap<string, Channel>`                                        |
+| `ready`                    | Resolves when every declared label is open (or ICE connected if none) |
+| `open(label, { signal? })` | Promise for one open channel                                          |
+| `close()`                  | Tear down this peer                                                   |
 
 ### `Channel`
 
-| Method / property | Description |
-| ----------------- | ----------- |
-| `label` / `readyState` / `maxMessageSize` | Channel state |
-| `raw` | Underlying `RTCDataChannel` |
-| `ready` | Resolves when open and SCTP size applied |
-| `send(data, { signal? })` | Backpressured send; throws if oversized |
-| `close()` / `[Symbol.dispose]()` | Close the channel |
+| Method / property                         | Description                              |
+| ----------------------------------------- | ---------------------------------------- |
+| `label` / `readyState` / `maxMessageSize` | Channel state                            |
+| `raw`                                     | Underlying `RTCDataChannel`              |
+| `ready`                                   | Resolves when open and SCTP size applied |
+| `send(data, { signal? })`                 | Backpressured send; throws if oversized  |
+| `close()` / `[Symbol.dispose]()`          | Close the channel                        |
 
 ## Build
 
@@ -191,4 +191,5 @@ pnpm build   # output in dist/
 - A signaling transport you control
 
 ## Source Code
+
 Since this plugin is MIT licensed, you can also contribute to it at it's repo on [GitHub](https://github.com/YSpoof/fastrtc)
